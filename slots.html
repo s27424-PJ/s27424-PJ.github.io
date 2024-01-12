@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Sloty</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.cdnfonts.com/css/casino" rel="stylesheet">
+  <style>
+
+.slot-machine {
+  text-align: center;
+}
+
+.slot-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.slot {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #000;
+  margin: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+ 
+  font-size: 72px;
+  
+}
+
+@keyframes spin3 {
+  from {
+    transform: rotateX(0deg);
+  }
+  to {
+    transform: rotateX(360deg) ;
+    
+  }
+}
+button {
+   
+      margin-top: 20px;
+      width: 200px;
+      height: 50px;
+    }
+h1{
+    font-family: 'Casino Shadow', sans-serif;
+    font-size: 320%;
+}
+  </style>
+</head>
+<body>
+    
+  <header>
+    
+    <div class="logo-container">
+      <img src="star.png" class="rotate" >
+      <img src="casino.png" id="casino">
+      <img src="star.png" class="rotate2" >
+  </div>
+    <nav>
+        
+      <ul>
+        <li><a href="index.html">Strona glowna</a></li>
+        <li><a href="ruletka.html">Ruletka</a></li>
+        <li><a href="kosci.html">Kosci</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="slot-machine">
+        <h1>Slot Machine</h1>
+        <div class="slot-container">
+          <div class="slot" id="slot1"><span class="icon">🍒</span></div>
+          <div class="slot" id="slot2"><span class="icon">🍒</span></div>
+          <div class="slot" id="slot3"><span class="icon">🍒</span></div>
+        </div>
+        <button onclick="spin()">Spin</button>
+        <p id="result"></p>
+      </div>
+      
+      <script >
+      const fruits = ['🍒', '🍊', '🍋', '🍇', '🍉', '🍓']; 
+
+function getRandomFruit() {
+  return fruits[Math.floor(Math.random() * fruits.length)];
+}
+
+function spin() {
+  const resultText = document.getElementById('result');
+  const slots = document.querySelectorAll('.slot');
+  const spinButton = document.querySelector('button');
+
+  spinButton.style.pointerEvents = 'none';
+
+  slots.forEach(slot => {
+    slot.style.animation = 'none'; 
+    void slot.offsetWidth;
+    slot.style.animation = 'spin3 1s ease-out';
+    slot.textContent = getRandomFruit();
+  });
+
+  setTimeout(() => {
+    slots.forEach(slot => {
+      slot.style.animation = ''; 
+    });
+
+    if (slots[0].textContent === slots[1].textContent && slots[1].textContent === slots[2].textContent) {
+      resultText.textContent = 'Congratulations! You win!';
+    } else {
+      resultText.textContent = 'Try again!';
+    }
+
+
+    spinButton.style.pointerEvents = 'auto';
+  }, 1000); 
+}
+        </script>
+  </main>
+
+</body>
+</html>
